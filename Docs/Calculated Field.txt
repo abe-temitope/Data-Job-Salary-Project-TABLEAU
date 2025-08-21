@@ -1,0 +1,41 @@
+CALCULATED MEASURES
+
+Salary Grouping
+	IF [Yearly Salary] >= 150000 THEN "High"
+	ELSEIF [Yearly Salary] >= 100000 AND [Yearly Salary] < 150000 THEN "Medium"
+	ELSE "Low"
+	END
+
+% Of Total Remote Jobs
+	SUM(IF [Job Work From Home] = TRUE
+	THEN 1 ELSE 0 END) / COUNT([Job Title Short])
+	
+Peak & Valley
+	IF COUNT([Job Title Short]) > LOOKUP(COUNT([Job Title Short]), -1)
+	AND COUNT([Job Title Short]) > LOOKUP(COUNT([Job Title Short]), 1)
+	THEN COUNT([Job Title Short])
+	ELSEIF COUNT([Job Title Short]) < LOOKUP(COUNT([Job Title Short]), -1)
+	AND COUNT([Job Title Short]) < LOOKUP(COUNT([Job Title Short]), 1)
+	THEN COUNT([Job Title Short])
+	ELSE NULL
+	END
+
+Remote vs Onsite	
+	IF [Job Work From Home] = TRUE
+	THEN "Remote"
+	ELSE "On-site"
+	END
+	
+Job ranking based on count
+	RANK(COUNT([Job Skills]))
+		// Rank each job skilll based on how frequently  it appears across the dataset
+		// NOTE: After calculated field has created, right click on the measure, click on edit table calculation,
+		// then specific Dimention, the click on Job skills column for the ranking to work
+		
+		
+		
+		
+		
+COLORS
+	#2c3e50
+	#f39c12
